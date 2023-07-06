@@ -20,6 +20,7 @@ class PostRepository {
         ],
       },
     });
+    return searchedPosts
   };
 
   createPost = async (UserId, title, topic, content) => {

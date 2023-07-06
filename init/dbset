@@ -4,3 +4,4 @@ npx sequelize model:generate --name Post --attributes UserId:integer,title:strin
 npx sequelize model:generate --name Comment --attributes PostId:integer,UserId:integer,content:string
 npx sequelize model:generate --name LikesPost --attributes UserId:integer,PostId:integer
 npx sequelize model:generate --name LikesComment --attributes UserId:integer,PostId:integer
+npx sequelize model:generate --name RefreshToken --attributes refreshToken:string,UserId:integer

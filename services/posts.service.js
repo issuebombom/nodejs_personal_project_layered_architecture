@@ -5,6 +5,9 @@ class PostService {
 
   findAllPosts = async () => {
     const findPostData = await this.postRepository.findAllPosts();
+    findPostData.sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    });
     return findPostData;
   };
 
