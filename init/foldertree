@@ -11,4 +11,4 @@ do
   done
 done
 
-mkdir assets
+mkdir assets middlewares
