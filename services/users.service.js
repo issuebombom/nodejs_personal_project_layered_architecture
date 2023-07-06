@@ -23,6 +23,19 @@ class UserService {
     };
   };
 
+  findAllUsers = async () => {
+    const findUserData = await this.userRepository.findAllUsers();
+    return findUserData.map((user) => {
+      return {
+        userId: user.userId,
+        nickname: user.nickname,
+        email: user.email,
+        gender: user.gender,
+        interestTopic: user.interestTopic,
+      };
+    });
+  };
+
   // 일반 정보 공개
   findUserCommonData = async (userInfo) => {
     // id와 email 둘 중 하나라도 찾으면 해당하는 유저 정보 보냄

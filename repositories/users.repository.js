@@ -7,6 +7,11 @@ class UserRepository {
     return createUserData;
   };
 
+  findAllUsers = async () => {
+    const findUserData = await User.findAll();
+    return findUserData;
+  };
+
   findUserById = async (userId) => {
     const findUserData = await User.findByPk(userId);
     return findUserData;
@@ -14,7 +19,7 @@ class UserRepository {
 
   findUserByEmail = async (email) => {
     const findUserData = await User.findOne({ where: { email } });
-    return findUserData
+    return findUserData;
   };
 }
 
