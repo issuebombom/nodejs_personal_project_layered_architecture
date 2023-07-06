@@ -49,14 +49,19 @@ LikeComment 테이블 - UUID, UserId, CommentId
 **_auth.router.js_**
 
 - [x] '/login' POST -> 로그인
+  - [x] 토큰 생성 기능
 - [x] '/signup' POST -> 회원가입
 
 **_posts.router.js_**
 
 - [x] '/posts' GET -> 전체 게시글 나열
+- [x] '/posts/:postId' GET -> 개별 게시글 나열
 - [x] '/posts' POST -> 게시글 작성
+  - [x] 인증, 인가 기능
 - [x] '/posts' PUT -> 게시글 수정
+  - [x] 인증, 인가 기능
 - [x] '/posts' DELETE -> 게시글 삭제
+  - [x] 인증, 인가 기능
 
 **_comments.router.js_**
 
@@ -83,9 +88,10 @@ LikeComment 테이블 - UUID, UserId, CommentId
 
 ## Middlewares
 
-- 토큰 생성 (Access Token, Refresh Token)
-- 인증
-- 인가
+**_auth.middleware.js_**
+
+- [x] 토큰 생성 (Access Token, Refresh Token)
+- [x] 인증, 인가
 
 ## 3-layered architecture
 
