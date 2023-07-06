@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
+
+      this.hasMany(models.RefreshToken, {
+        sourceKey: 'userId',
+        foreignKey: 'UserId',
+      });
     }
   }
   User.init(
