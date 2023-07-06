@@ -1,7 +1,7 @@
 const UserService = require('../services/users.service');
 const bcrypt = require('bcrypt');
 
-class UsersController {
+class UserController {
   userService = new UserService();
   // 프론트의 요청을 받고 응답합니다.
   getUserData = async (req, res) => {
@@ -10,7 +10,7 @@ class UsersController {
       const user = await this.userService.findUserCommonData(userId);
 
       // 유저 정보 없음
-      if (!user) return res.status(404).send({message: '유저 정보 없음'})
+      if (!user) return res.status(404).send({ message: '유저 정보 없음' });
       res.status(200).send({ data: user });
     } catch (err) {
       console.error(err.name, ':', err.message);
@@ -46,7 +46,6 @@ class UsersController {
   login = async (req, res) => {
     try {
       const { email, password } = req.body;
-      // const { userId } = res.locals.user;
       const findUserAllData = await this.userService.findUserAllData(email);
 
       // 이메일 검증
@@ -66,4 +65,4 @@ class UsersController {
   };
 }
 
-module.exports = UsersController;
+module.exports = UserController;
