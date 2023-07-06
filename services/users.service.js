@@ -61,6 +61,30 @@ class UserService {
     if (findUserData === null) return false; // 조회 결과 없으면 false
     return findUserData;
   };
+
+  // 유저 정보 수정
+  modifyUserInfo = async (userId, nickname, email, gender, interestTopic) => {
+    const modifiedUserData = await this.userRepository.modifyUserInfo(
+      userId,
+      nickname,
+      email,
+      gender,
+      interestTopic
+    );
+    return modifiedUserData;
+  };
+
+  // 유저 비밀번호 수정
+  modifyUserPassword = async (userId, password) => {
+    const modifiedUserPassword = await this.userRepository.modifyUserPassword(userId, password);
+    return modifiedUserPassword;
+  };
+
+  // 유저 삭제 (회원 탈퇴)
+  deleteUserInfo = async (userId) => {
+    const deletedUserInfo = await this.userRepository.deleteUserInfo(userId);
+    return deletedUserInfo;
+  };
 }
 
 module.exports = UserService;

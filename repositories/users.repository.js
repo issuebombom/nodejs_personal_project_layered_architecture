@@ -21,6 +21,29 @@ class UserRepository {
     const findUserData = await User.findOne({ where: { email } });
     return findUserData;
   };
+
+  modifyUserInfo = async (userId, nickname, email, gender, interestTopic) => {
+    const modifiedUserData = await User.update(
+      {
+        nickname,
+        email,
+        gender,
+        interestTopic,
+      },
+      { where: { userId } }
+    );
+    return modifiedUserData;
+  };
+
+  modifyUserPassword = async (userId, password) => {
+    const modifiedUserPassword = await User.update({ password }, { where: { userId } });
+    return modifiedUserPassword;
+  };
+
+  deleteUserInfo = async (userId) => {
+    const deletedUserInfo = await User.destroy({ where: { userId } });
+    return deletedUserInfo;
+  };
 }
 
 module.exports = UserRepository;

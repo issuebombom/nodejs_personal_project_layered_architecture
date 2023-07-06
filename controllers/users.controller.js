@@ -33,6 +33,43 @@ class UserController {
     }
   };
 
+  modifyUserInfo = async (req, res) => {
+    try {
+      const { userId } = res.locals.user;
+      const { nickname, email, gender, interestTopic } = req.body;
+
+      await this.userService.modifyUserInfo(userId, nickname, email, gender, interestTopic);
+      res.status(200).send({ message: '개인정보 수정 성공' });
+    } catch (err) {
+      console.error(err.name, ':', err.message);
+      return res.status(400).send({ message: `${err.message}` });
+    }
+  };
+
+  modifyUserPassword = async (req, res) => {
+    try {
+      const { userId } = res.locals.user;
+      const { password, newPassword, confirm } = req.body;
+      const findUserAllData = await this.userService.findUserAllData(userId);
+
+      // 패스워드 검증
+      const isPasswordValid = await bcrypt.compare(password, findUserAllData.password);
+      if (!isPasswordValid) return res.status(412).send({ message: '비밀번호 틀렸음' });
+
+      if (newPassword !== confirm)
+        return res.status(412).send({ message: '암호와 암호확인 불일치' });
+
+      if (password === newPassword) return res.status(400).send({ message: '비밀번호가 그대로임' });
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10); // pw, salt_rounds
+      await this.userService.modifyUserPassword(userId, hashedPassword);
+      res.status(200).send({ message: '비밀번호 변경 성공' });
+    } catch (err) {
+      console.error(err.name, ':', err.message);
+      return res.status(400).send({ message: `${err.message}` });
+    }
+  };
+
   signup = async (req, res) => {
     try {
       const { nickname, password, confirm, email, gender, interestTopic } = req.body;
@@ -87,7 +124,18 @@ class UserController {
       res.cookie('accessToken', accessToken);
       res.cookie('refreshToken', refreshToken);
 
-      await res.status(200).send({ message: '로그인 완료' });
+      res.status(200).send({ message: '로그인 완료' });
+    } catch (err) {
+      console.error(err.name, ':', err.message);
+      return res.status(400).send({ message: `${err.message}` });
+    }
+  };
+
+  leave = async (req, res) => {
+    try {
+      const { userId } = res.locals.user;
+      await this.userService.deleteUserInfo(userId);
+      res.status(200).send({ message: '탈퇴 완료' });
     } catch (err) {
       console.error(err.name, ':', err.message);
       return res.status(400).send({ message: `${err.message}` });
