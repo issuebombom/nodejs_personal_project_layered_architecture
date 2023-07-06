@@ -4,7 +4,7 @@
 
 - [x] 패키지 설치
 - [x] ERD 작성
-- [ ] REST API 작성
+- [x] REST API 작성
 - [x] 폴더 트리 구성
 - [x] dotenv 등록
 - [x] config.js 생성 및 등록
@@ -83,9 +83,10 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 
 **_users.router.js_**
 
-- [x] '/users/:userId' GET -> 유저 정보 조회
-- [x] '/users/:userId' PUT -> 유저 정보 수정
-- [x] '/users/:userId' DELETE -> 유저 정보 삭제 (회원탈퇴)
+- [x] '/users/info' GET -> 유저 정보 조회
+- [x] '/users/info' PUT -> 유저 정보 수정
+- [x] '/users/info/password' PUT -> 유저 패스워드 변경
+- [x] '/users/info' DELETE -> 유저 정보 삭제 (회원탈퇴)
 
 ## Middlewares
 
