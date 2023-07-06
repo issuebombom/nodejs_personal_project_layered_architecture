@@ -53,10 +53,10 @@ LikeComment 테이블 - UUID, UserId, CommentId
 
 **_posts.router.js_**
 
-- '/posts' GET -> 전체 게시글 나열
-- '/posts' POST -> 게시글 작성
-- '/posts' PUT -> 게시글 수정
-- '/posts' DELETE -> 게시글 삭제
+- [x] '/posts' GET -> 전체 게시글 나열
+- [x] '/posts' POST -> 게시글 작성
+- [x] '/posts' PUT -> 게시글 수정
+- [x] '/posts' DELETE -> 게시글 삭제
 
 **_comments.router.js_**
 
@@ -81,9 +81,15 @@ LikeComment 테이블 - UUID, UserId, CommentId
 - '/users/:userId' PUT -> 유저 정보 수정
 - '/users/:userId' DELETE -> 유저 정보 삭제 (회원탈퇴)
 
+## Middlewares
+
+- 토큰 생성 (Access Token, Refresh Token)
+- 인증
+- 인가
+
 ## 3-layered architecture
 
-controllers, services, repositories로 레이어를 나눈다.
-repositories - 순수하게 DB 조회만 한다.
-services - repositories에서 받은 조회 결과를 클라이언트 요구사항에 맞게 수정(정렬, 일부 정보만 공개 등)
+controllers, services, repositories로 레이어를 나눈다.  
+repositories - 순수하게 DB 조회만 한다.  
+services - repositories에서 받은 조회 결과를 클라이언트 요구사항에 맞게 수정(정렬, 일부 정보만 공개 등)  
 controllers - API 통신 영역, 유효성 검사
