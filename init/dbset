@@ -1,3 +1,4 @@
+npx sequelize db:create --env development
 npx sequelize model:generate --name User --attributes nickname:string,password:string,email:string,gender:string,interestTopic:string
 npx sequelize model:generate --name Post --attributes UserId:integer,title:string,content:string,topic:string
 npx sequelize model:generate --name Comment --attributes PostId:integer,UserId:integer,content:string
