@@ -16,15 +16,15 @@
   - [x] onDelete: 'CASCADE' 등록
   - [x] defaultValue: Sequelize.fn('now'), defaultValue: DataTypes.NOW 등록
   - [x] timestamps: false 등록
-- [ ] server.js 기본 구성
-- [ ] routes 구성
-- [ ] controllers 설정
-- [ ] services 설정
-- [ ] repositories 설정
-- [ ] repositories CRUD with DB 구현
-- [ ] services CRUD with repositories
-- [ ] controllers CRUD with services
-- [ ] Authorization middleware 설정
+- [x] server.js 기본 구성
+- [x] routes 구성
+- [x] controllers 설정
+- [x] services 설정
+- [x] repositories 설정
+- [x] repositories CRUD with DB 구현
+- [x] services CRUD with repositories
+- [x] controllers CRUD with services
+- [x] Authorization middleware 설정
 - [ ] ......
 
 ## ERD 작성
@@ -34,6 +34,7 @@ Post 테이블 - postId, UserId, title, topic, content
 Comment 테이블 - commentId, UserId, PostId, content  
 LikePost 테이블 - UUID, UserId, PostId  
 LikeComment 테이블 - UUID, UserId, CommentId
+RefreshToken 테이블 - UUID, refreshToken, UserId
 
 ## REST API
 
@@ -65,26 +66,26 @@ LikeComment 테이블 - UUID, UserId, CommentId
 
 **_comments.router.js_**
 
-- '/posts/:postId/comments' GET -> 해당 게시글의 댓글 나열
-- '/posts/:postId/comments' POST -> 댓글 작성
-- '/posts/:postId/comments' PUT -> 댓글 수정
-- '/posts/:postId/comments' DELETE -> 댓글 삭제
+- [x] '/posts/:postId/comments' GET -> 해당 게시글의 댓글 나열
+- [x] '/posts/:postId/comments' POST -> 댓글 작성
+- [x] '/posts/:postId/comments' PUT -> 댓글 수정
+- [x] '/posts/:postId/comments' DELETE -> 댓글 삭제
 
 **_likes.router.js_**
 
-- '/posts/:postId/likes' POST -> 게시글 좋아요 등록
-- '/posts/:postId/likes' DELETE -> 게시글 좋아요 취소
-- '/posts/:postId/likes' GET -> 게시글 좋아요 개수 조회
+- [x] '/posts/:postId/likes' POST -> 게시글 좋아요 등록
+- [x] '/posts/:postId/likes' DELETE -> 게시글 좋아요 취소
+- [x] '/posts/:postId/likes' GET -> 게시글 좋아요 개수 조회
 
-- '/posts/:postId/comments/:commentId/likes' POST -> 댓글 좋아요 등록
-- '/posts/:postId/comments/:commentId/likes' DELETE -> 댓글 좋아요 취소
-- '/posts/:postId/comments/:commentId/likes' GET -> 댓글 좋아요 개수 조회
+- [x] '/posts/:postId/comments/:commentId/likes' POST -> 댓글 좋아요 등록
+- [x] '/posts/:postId/comments/:commentId/likes' DELETE -> 댓글 좋아요 취소
+- [x] '/posts/:postId/comments/:commentId/likes' GET -> 댓글 좋아요 개수 조회
 
 **_users.router.js_**
 
 - [x] '/users/:userId' GET -> 유저 정보 조회
-- '/users/:userId' PUT -> 유저 정보 수정
-- '/users/:userId' DELETE -> 유저 정보 삭제 (회원탈퇴)
+- [x] '/users/:userId' PUT -> 유저 정보 수정
+- [x] '/users/:userId' DELETE -> 유저 정보 삭제 (회원탈퇴)
 
 ## Middlewares
 
