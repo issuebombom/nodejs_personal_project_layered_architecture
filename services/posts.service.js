@@ -18,7 +18,7 @@ class PostService {
     return createdPostResult;
   };
 
-  modifyPost = async (postId, title, content, topic) => {
+  modifyPost = async (postId, title, topic, content) => {
     const modifiedPostResult = await this.postRepository.modifyPost(postId, title, topic, content);
     return modifiedPostResult;
   };

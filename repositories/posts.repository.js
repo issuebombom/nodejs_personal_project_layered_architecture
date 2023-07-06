@@ -33,7 +33,7 @@ class PostRepository {
   };
 
   deletePost = async (postId) => {
-    const deletedPostData = await Post.destroy({ where: postId });
+    const deletedPostData = await Post.destroy({ where: { postId } });
     return deletedPostData;
   };
 }
