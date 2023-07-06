@@ -52,11 +52,11 @@ class PostController {
       const { title, content, topic } = req.body;
       const post = await this.postService.findPost(postId);
 
+      if (!post) return res.status(404).send({ message: '게시글 정보 없음' });
+
       if (userId !== post.UserId) return res.status(412).send({ message: '수정 권한 없음' });
 
-      const modifiedPostResult = await this.postService.modifyPost(postId, title, topic, content);
-
-      if (!modifiedPostResult) return res.status(404).send({ message: '게시글 정보 없음' });
+      await this.postService.modifyPost(postId, title, topic, content);
 
       res.status(200).send({ message: '게시글 수정 완료' });
     } catch (err) {
