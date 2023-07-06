@@ -5,7 +5,7 @@ class PostController {
 
   getAllPosts = async (req, res) => {
     try {
-      const posts = this.postService.findAllPosts();
+      const posts = await this.postService.findAllPosts();
 
       if (posts.length === 0) return res.status(404).send({ message: '게시글 정보 없음' });
 
@@ -19,7 +19,7 @@ class PostController {
   getPost = async (req, res) => {
     try {
       const { postId } = req.params;
-      const post = this.postService.findPost(postId);
+      const post = await this.postService.findPost(postId);
 
       if (!post) return res.status(404).send({ message: '게시글 정보 없음' });
 
@@ -34,7 +34,7 @@ class PostController {
     try {
       const { title, topic, content } = req.body;
       const { userId } = res.locals.user;
-      const createdPostResult = this.postService.createPost(userId, title, topic, content);
+      const createdPostResult = await this.postService.createPost(userId, title, topic, content);
 
       if (!createdPostResult) return res.status(400).send({ message: '게시글 생성 실패' });
 
@@ -47,9 +47,14 @@ class PostController {
 
   modifyPost = async (req, res) => {
     try {
-      const { title, content, topic } = req.body;
       const { postId } = req.params;
-      const modifiedPostResult = this.postService.modifyPost(postId, title, topic, content);
+      const { userId } = res.locals.user;
+      const { title, content, topic } = req.body;
+      const post = await this.postService.findPost(postId);
+
+      if (userId !== post.UserId) return res.status(412).send({ message: '수정 권한 없음' });
+
+      const modifiedPostResult = await this.postService.modifyPost(postId, title, topic, content);
 
       if (!modifiedPostResult) return res.status(404).send({ message: '게시글 정보 없음' });
 
@@ -63,7 +68,12 @@ class PostController {
   deletePost = async (req, res) => {
     try {
       const { postId } = req.params;
-      const deletedPostResult = this.postService.deletePost(postId);
+      const { userId } = res.locals.user;
+      const post = await this.postService.findPost(postId);
+
+      if (userId !== post.UserId) return res.status(412).send({ message: '삭제 권한 없음' });
+
+      const deletedPostResult = await this.postService.deletePost(postId);
 
       if (!deletedPostResult) return res.status(404).send({ message: '게시글 정보 없음' });
 
