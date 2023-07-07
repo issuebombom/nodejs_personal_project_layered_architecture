@@ -27,6 +27,14 @@
 - [x] Authorization middleware 설정
 - [ ] ......
 
+## ISSUE 추가 적용 및 수정 목록
+
+- [ ] 로그인할 때 마다 리프레시 토큰을 생성하므로 DB에 중복 적재되지 않도록 기존 유저는 리프레시 토큰 최신화 처리
+- [ ] 로그인 시 컨트롤러에서 직접 리프레시 토큰 테이블에 접근하는데 해당 task도 repository가 처리할 수 있도록 고민해볼 것
+- [ ] nodemailer 적용 시 토큰 생성하여 5분 내 가입 가능하도록 구현
+- [ ] 트랜잭션 적용 방법 고민해 볼것
+- [ ] ......
+
 ## ERD 작성
 
 User 테이블 - userId, nickname, email, gender, age, interestTopic, createdAt, updatedAt  
@@ -76,7 +84,6 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 - [x] '/posts/:postId/likes' POST -> 게시글 좋아요 등록
 - [x] '/posts/:postId/likes' DELETE -> 게시글 좋아요 취소
 - [x] '/posts/:postId/likes' GET -> 게시글 좋아요 개수 조회
-
 - [x] '/posts/:postId/comments/:commentId/likes' POST -> 댓글 좋아요 등록
 - [x] '/posts/:postId/comments/:commentId/likes' DELETE -> 댓글 좋아요 취소
 - [x] '/posts/:postId/comments/:commentId/likes' GET -> 댓글 좋아요 개수 조회
