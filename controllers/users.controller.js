@@ -79,7 +79,7 @@ class UserController {
 
       // 유효성 검증
 
-      // 해시화
+      // 해시화 및 생성
       const hashedPassword = await bcrypt.hash(password, 10); // pw, salt_rounds
       const createUserData = await this.userService.createUser(
         nickname,
