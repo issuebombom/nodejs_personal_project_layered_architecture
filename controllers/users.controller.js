@@ -12,7 +12,7 @@ class UserController {
       const users = await this.userService.findAllUsers();
 
       // 유저 정보 없음
-      if (!users) return res.status(404).send({ message: '유저 정보 없음' });
+      if (users.length === 0) return res.status(404).send({ message: '유저 정보 없음' });
       res.status(200).send({ data: users });
     } catch (err) {
       console.error(err.name, ':', err.message);
