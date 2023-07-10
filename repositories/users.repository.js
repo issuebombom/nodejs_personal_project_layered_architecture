@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, RefreshToken } = require('../models');
 
 class UserRepository {
   // 유저 데이터 생성 (회원가입)
@@ -44,6 +44,26 @@ class UserRepository {
     const deletedUserInfo = await User.destroy({ where: { userId } });
     return deletedUserInfo;
   };
+
+  findRefreshTokenByUserId = async (UserId) => {
+    const findRefreshTokenData = await RefreshToken.findOne({ UserId })
+    return findRefreshTokenData;
+  }
+
+  createRefreshToken = async (refreshToken, UserId) => {
+    const createdRefreshToken = RefreshToken.create({ refreshToken, UserId });
+    return createdRefreshToken;
+  };
+
+  updateRefreshToken = async (refreshToken, UserId) => {
+    const updatedRefreshToken = RefreshToken.update({ refreshToken }, { where: { UserId } })
+    return updatedRefreshToken
+  }
+
+  deleteRefreshToken = async (UserId) => {
+    const deletedRefreshToken = RefreshToken.destroy({ where: { UserId } })
+    return deletedRefreshToken;
+  }
 }
 
 module.exports = UserRepository;

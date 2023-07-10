@@ -85,6 +85,18 @@ class UserService {
     const deletedUserInfo = await this.userRepository.deleteUserInfo(userId);
     return deletedUserInfo;
   };
+
+  // 리프레시 토큰 저장
+  createRefreshToken = async (refreshToken, userId) => {
+    const findRefreshTokenData = await this.userRepository.findRefreshTokenByUserId(userId);
+
+    if (findRefreshTokenData) {
+      await this.userRepository.deleteRefreshToken(userId);
+    }
+
+    const createdRefreshToken = await this.userRepository.createRefreshToken(refreshToken, userId);
+    return createdRefreshToken;
+  };
 }
 
 module.exports = UserService;
