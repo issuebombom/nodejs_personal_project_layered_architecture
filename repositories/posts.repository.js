@@ -1,4 +1,4 @@
-const { Post, LikesPost } = require('../models');
+const { Post, Comment, LikesPost } = require('../models');
 
 class PostRepository {
   findPostById = async (postId) => {
@@ -13,6 +13,10 @@ class PostRepository {
           model: LikesPost,
           attributes: ['LikesPostId', 'UserId'],
         },
+        {
+          model: Comment,
+          attributes: ['UserId', 'content']
+        }
       ],
     });
     return findPostData;

@@ -23,6 +23,7 @@ class PostService {
         title: post.title,
         content: post.content,
         topic: post.topic,
+        comments: post.Comments.length,
         likes: post.LikesPosts.length,
         createdAt: post.createdAt,
         updatedAt: post.updatedAt,
