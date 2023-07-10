@@ -3,12 +3,30 @@ const CommentRepository = require('../repositories/comments.repository');
 class CommentService {
   commentRepository = new CommentRepository();
 
-  findCommentsByPost = async (postId) => {
+  findCommentsByPost = async (postId, orderby) => {
+    orderby = orderby ? orderby : 'recent'; // default: recent
     const findCommentData = await this.commentRepository.findCommentsByPostId(postId);
-    // 호출한 Post들을 가장 최신 게시글 부터 정렬합니다.
-    findCommentData.sort((a, b) => {
-      return b.createdAt - a.createdAt;
+    switch (orderby) {
+      case 'recent':
+        findCommentData.sort((a, b) => {
+          return b.createdAt - a.createdAt;
+        });
+      case 'likes':
+        findCommentData.sort((a, b) => {
+          return b.LikesComments.length - a.LikesComments.length;
+        });
+    }
+    return findCommentData.map((comment) => {
+      return {
+        commentId: comment.commentId,
+        UserId: comment.UserId,
+        content: comment.content,
+        likes: comment.LikesComments.length,
+        createdAt: comment.createdAt,
+        updatedAt: comment.updatedAt,
+      };
     });
+
     return findCommentData;
   };
 

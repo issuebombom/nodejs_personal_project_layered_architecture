@@ -63,7 +63,7 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 
 **_posts.router.js_**
 
-- [x] '/posts' GET -> 전체 게시글 나열
+- [x] '/posts' GET -> 전체 게시글 나열(?orderby=likes 입력 시 좋아요 순 정렬)
   - [x] 최신 날짜 기준 정렬
   - [x] 좋아요 수 높은 기준 정렬
 - [x] '/posts/:postId' GET -> 개별 게시글 나열
@@ -76,7 +76,7 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 
 **_comments.router.js_**
 
-- [x] '/posts/:postId/comments' GET -> 해당 게시글의 댓글 나열
+- [x] '/posts/:postId/comments' GET -> 해당 게시글의 댓글 나열(?orderby=likes 입력 시 좋아요 순 정렬)
 - [x] '/posts/:postId/comments' POST -> 댓글 작성
 - [x] '/posts/:postId/comments' PUT -> 댓글 수정
 - [x] '/posts/:postId/comments' DELETE -> 댓글 삭제

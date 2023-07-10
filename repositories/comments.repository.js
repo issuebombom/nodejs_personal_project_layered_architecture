@@ -1,8 +1,16 @@
-const { Comment } = require('../models');
+const { Comment, LikesComment } = require('../models');
 
 class CommentRepository {
   findCommentsByPostId = async (PostId) => {
-    const findCommentData = await Comment.findAll({ where: { PostId } });
+    const findCommentData = await Comment.findAll({
+      where: { PostId },
+      include: [
+        {
+          model: LikesComment,
+          attributes: ['LikesCommentId', 'UserId'],
+        },
+      ],
+    });
     return findCommentData;
   };
 
