@@ -21,7 +21,7 @@ class UserController {
   };
   getUser = async (req, res) => {
     try {
-      const { userId } = req.params;
+      const { userId } = res.locals.user;
       const user = await this.userService.findUserCommonData(userId);
 
       // 유저 정보 없음

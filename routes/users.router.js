@@ -8,7 +8,7 @@ const UserController = require('../controllers/users.controller');
 const userController = new UserController();
 
 userRouter.get('/users', userController.getUsers);
-userRouter.get('/users/info', userController.getUser);
+userRouter.get('/users/info', auth.verifyAccessToken, userController.getUser);
 userRouter.put('/users/info', auth.verifyAccessToken, userController.modifyUserInfo);
 userRouter.put('/users/info/password', auth.verifyAccessToken, userController.modifyUserPassword);
 userRouter.delete('/users/info', auth.verifyAccessToken, userController.leave);
