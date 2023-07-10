@@ -3,12 +3,31 @@ const PostRepository = require('../repositories/posts.repository');
 class PostService {
   postRepository = new PostRepository();
 
-  findAllPosts = async () => {
+  findAllPosts = async (orderby) => {
+    orderby = orderby ? orderby : 'recent'; // default: recent
     const findPostData = await this.postRepository.findAllPosts();
-    findPostData.sort((a, b) => {
-      return b.createdAt - a.createdAt;
+    switch (orderby) {
+      case 'recent':
+        findPostData.sort((a, b) => {
+          return b.createdAt - a.createdAt;
+        });
+      case 'likes':
+        findPostData.sort((a, b) => {
+          return b.LikesPosts.length - a.LikesPosts.length;
+        });
+    }
+    return findPostData.map((post) => {
+      return {
+        postId: post.postId,
+        UserId: post.UserId,
+        title: post.title,
+        content: post.content,
+        topic: post.topic,
+        likes: post.LikesPosts.length,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+      };
     });
-    return findPostData;
   };
 
   findPost = async (postId) => {

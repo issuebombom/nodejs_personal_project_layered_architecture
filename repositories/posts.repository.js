@@ -1,4 +1,4 @@
-const { Post } = require('../models');
+const { Post, LikesPost } = require('../models');
 
 class PostRepository {
   findPostById = async (postId) => {
@@ -7,7 +7,14 @@ class PostRepository {
   };
 
   findAllPosts = async () => {
-    const findPostData = await Post.findAll();
+    const findPostData = await Post.findAll({
+      include: [
+        {
+          model: LikesPost,
+          attributes: ['LikesPostId', 'UserId'],
+        },
+      ],
+    });
     return findPostData;
   };
 
@@ -20,7 +27,7 @@ class PostRepository {
         ],
       },
     });
-    return searchedPosts
+    return searchedPosts;
   };
 
   createPost = async (UserId, title, topic, content) => {

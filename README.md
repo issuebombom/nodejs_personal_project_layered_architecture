@@ -64,6 +64,8 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 **_posts.router.js_**
 
 - [x] '/posts' GET -> 전체 게시글 나열
+  - [x] 최신 날짜 기준 정렬
+  - [x] 좋아요 수 높은 기준 정렬
 - [x] '/posts/:postId' GET -> 개별 게시글 나열
 - [x] '/posts' POST -> 게시글 작성
   - [x] 인증, 인가 기능

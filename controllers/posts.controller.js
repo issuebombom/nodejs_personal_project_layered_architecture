@@ -5,7 +5,8 @@ class PostController {
 
   getAllPosts = async (req, res) => {
     try {
-      const posts = await this.postService.findAllPosts();
+      const { orderby } = req.query; // orderby 쿼리로 'likes'를 받으면 좋아요 많은 순으로 정렬합니다. 없으면 최신순
+      const posts = await this.postService.findAllPosts(orderby);
 
       if (posts.length === 0) return res.status(404).send({ message: '게시글 정보 없음' });
 
