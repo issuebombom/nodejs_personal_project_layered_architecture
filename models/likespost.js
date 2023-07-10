@@ -8,10 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.User, {
         targetKey: 'userId',
         foreignKey: 'UserId',
+        onDelete: 'CASCADE',
       });
       this.belongsTo(models.Post, {
         targetKey: 'postId',
         foreignKey: 'PostId',
+        onDelete: 'CASCADE',
       });
     }
   }
@@ -29,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
           model: 'User',
           key: 'userId',
         },
-        onDelete: 'CASCADE',
       },
       PostId: {
         type: DataTypes.INTEGER,
@@ -37,7 +38,6 @@ module.exports = (sequelize, DataTypes) => {
           model: 'Post',
           key: 'postId',
         },
-        onDelete: 'CASCADE',
       },
     },
     {
