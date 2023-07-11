@@ -48,10 +48,14 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 
 ### '/' 페이지 접속 관련
 
+프론트 페이지가 존재한다고 가정했을 때 우선적으로 떠오르는 render 페이지를 작성해 보았습니다.  
+`현재 프론트 페이지는 구현되어 있지 않습니다.`
+
 - '/' GET 메인페이지
 - '/login' GET -> 로그인 페이지
 - '/signup' GET -> 회원가입 페이지
 - '/posts/:postId' GET -> 상세 게시글 보기
+- '/mypage' GET -> 개인정보 페이지
 
 ### '/api' 데이터 접근 관련
 
