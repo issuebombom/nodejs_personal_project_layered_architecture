@@ -1,6 +1,0 @@
-git init
-git add README.md
-git commit -m "docs: upload README.md"
-git branch -M main
-git remote add origin git@github.com:issuebombom/nodejs_personal_project_layered_architecture.git
-git push -u origin main
