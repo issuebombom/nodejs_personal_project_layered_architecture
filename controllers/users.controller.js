@@ -1,6 +1,5 @@
 const UserService = require('../services/users.service');
 const AuthMiddleware = require('../middlewares/auth.middleware');
-const { RefreshToken } = require('../models');
 const VerificationMail = require('../assets/js/nodemailer');
 const bcrypt = require('bcrypt');
 
