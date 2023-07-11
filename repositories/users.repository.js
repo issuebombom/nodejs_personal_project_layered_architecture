@@ -51,17 +51,17 @@ class UserRepository {
   }
 
   createRefreshToken = async (refreshToken, UserId) => {
-    const createdRefreshToken = RefreshToken.create({ refreshToken, UserId });
+    const createdRefreshToken = await RefreshToken.create({ refreshToken, UserId });
     return createdRefreshToken;
   };
 
   updateRefreshToken = async (refreshToken, UserId) => {
-    const updatedRefreshToken = RefreshToken.update({ refreshToken }, { where: { UserId } })
+    const updatedRefreshToken = await RefreshToken.update({ refreshToken }, { where: { UserId } })
     return updatedRefreshToken
   }
 
   deleteRefreshToken = async (UserId) => {
-    const deletedRefreshToken = RefreshToken.destroy({ where: { UserId } })
+    const deletedRefreshToken = await RefreshToken.destroy({ where: { UserId } })
     return deletedRefreshToken;
   }
 }
