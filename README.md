@@ -41,7 +41,7 @@ User 테이블 - userId, nickname, email, gender, age, interestTopic, createdAt,
 Post 테이블 - postId, UserId, title, topic, content  
 Comment 테이블 - commentId, UserId, PostId, content  
 LikePost 테이블 - UUID, UserId, PostId  
-LikeComment 테이블 - UUID, UserId, CommentId
+LikeComment 테이블 - UUID, UserId, CommentId  
 RefreshToken 테이블 - UUID, refreshToken, UserId
 
 ## REST API
@@ -307,5 +307,3 @@ verifyCode = async (req, res) => {
 ---
 
 정리하자면 회원가입 페이지 내 인증 메일 발송 버튼이 존재하고 이를 클릭 시 `sendVerificationMail` 함수가 작동합니다. 그 뒤 프론트에 인증번호 입력창과 확인 버튼이 생성된다는 가정 하에 확인 버튼 클릭 시 `verifyCode` 함수가 작동합니다. 이 과정을 모두 거쳤다면 페이지 하단에 존재할 회원가입하기 버튼 클릭 시 작동하는 `signup` 함수가 정상적으로 실행되어 신규 유저를 생성합니다.
-
-
