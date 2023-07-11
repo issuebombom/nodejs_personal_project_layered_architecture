@@ -13,6 +13,8 @@ userRouter.put('/users/info', auth.verifyAccessToken, userController.modifyUserI
 userRouter.put('/users/info/password', auth.verifyAccessToken, userController.modifyUserPassword);
 userRouter.delete('/users/info', auth.verifyAccessToken, userController.leave);
 userRouter.post('/signup', userController.signup);
+userRouter.post('/signup/mail', userController.sendVerificationMail);
+userRouter.post('/signup/mail/verify', userController.verifyCode);
 userRouter.post('/login', userController.login);
 
 module.exports = userRouter;

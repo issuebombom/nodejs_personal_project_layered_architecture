@@ -1,6 +1,7 @@
 const UserService = require('../services/users.service');
 const AuthMiddleware = require('../middlewares/auth.middleware');
 const { RefreshToken } = require('../models');
+const VerificationMail = require('../assets/js/nodemailer');
 const bcrypt = require('bcrypt');
 
 class UserController {
@@ -70,6 +71,43 @@ class UserController {
     }
   };
 
+  sendVerificationMail = async (req, res) => {
+    try {
+      const { email } = req.body;
+      const verificationMail = new VerificationMail();
+      const randomNumber = await verificationMail.sendEmail(email); // 인증번호 메일 전송 후 난수 리턴
+      req.session.verificationCode = randomNumber;
+
+      res.status(200).send({ message: '인증 메일 전송 완료' });
+    } catch (err) {
+      console.error(err.name, ':', err.message);
+      return res.status(400).send({ message: `${err.message}` });
+    }
+  };
+
+  // 인증 메일 발송 시 인증 번호 입력 form + 인증 확인 button 기능에 부여되는 함수
+  verifyCode = async (req, res) => {
+    try {
+      const { inputVerificationCode } = req.body;
+      const verificationCode = req.session.verificationCode;
+
+      if (!verificationCode) return res.status(404).send({ message: '인증 메일을 먼저 발송할 것' });
+      // 인증 번호 입력 유효성 검증 필요
+
+      // 인증 번호 일치 여부 검증
+      if (verificationCode !== inputVerificationCode)
+        return res.status(412).send({ message: '인증 번호 일치하지 않음' });
+
+      // 인증 번호 일치 시
+      req.session.isVerified = true;
+
+      return res.status(200).send({ message: '인증 번호 확인 완료' });
+    } catch (err) {
+      console.error(err.name, ':', err.message);
+      return res.status(400).send({ message: `${err.message}` });
+    }
+  };
+
   signup = async (req, res) => {
     try {
       const { nickname, password, confirm, email, gender, interestTopic } = req.body;
@@ -78,6 +116,10 @@ class UserController {
       if (password !== confirm) return res.status(412).send({ message: '암호와 암호확인 불일치' });
 
       // 유효성 검증
+
+      // 인증 번호 검증 확인 유무
+      if (!req.session.isVerified)
+        return res.status(412).send({ message: '인증 번호를 먼저 검증받을 것' });
 
       // 해시화 및 생성
       const hashedPassword = await bcrypt.hash(password, 10); // pw, salt_rounds
@@ -113,12 +155,7 @@ class UserController {
       const refreshToken = this.authMiddleware.createRefreshToken();
 
       // 리프레시 토큰 DB 저장
-      try {
-        await RefreshToken.create({ refreshToken, UserId: userId });
-      } catch (err) {
-        console.error(err.name, ':', err.message);
-        return res.status(500).send({ message: `${err.message}` });
-      }
+      await this.userService.createRefreshToken(refreshToken, userId);
 
       // 쿠키 저장
       res.cookie('accessToken', accessToken);
