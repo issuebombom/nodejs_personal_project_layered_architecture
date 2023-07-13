@@ -12,7 +12,7 @@ function login() {
       password,
     },
     success: (response) => {
-      alert(response.message)
+      alert(response.message);
       socket.emit('LOGIN_SUCCEED', {
         email,
       });
