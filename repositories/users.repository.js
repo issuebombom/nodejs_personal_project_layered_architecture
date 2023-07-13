@@ -1,10 +1,15 @@
-const { User, RefreshToken } = require('../models');
+const { User, RefreshToken, ProfileImage } = require('../models');
 
 class UserRepository {
   // 유저 데이터 생성 (회원가입)
   createUser = async (nickname, password, email, gender, interestTopic) => {
     const createUserData = await User.create({ nickname, password, email, gender, interestTopic });
     return createUserData;
+  };
+
+  createProfileImage = async (imageUrl, UserId) => {
+    const createdProfileImage = await ProfileImage.create({ imageUrl, UserId });
+    return createdProfileImage;
   };
 
   findAllUsers = async () => {
@@ -46,9 +51,9 @@ class UserRepository {
   };
 
   findRefreshTokenByUserId = async (UserId) => {
-    const findRefreshTokenData = await RefreshToken.findOne({ UserId })
+    const findRefreshTokenData = await RefreshToken.findOne({ UserId });
     return findRefreshTokenData;
-  }
+  };
 
   createRefreshToken = async (refreshToken, UserId) => {
     const createdRefreshToken = await RefreshToken.create({ refreshToken, UserId });
@@ -56,14 +61,14 @@ class UserRepository {
   };
 
   updateRefreshToken = async (refreshToken, UserId) => {
-    const updatedRefreshToken = await RefreshToken.update({ refreshToken }, { where: { UserId } })
-    return updatedRefreshToken
-  }
+    const updatedRefreshToken = await RefreshToken.update({ refreshToken }, { where: { UserId } });
+    return updatedRefreshToken;
+  };
 
   deleteRefreshToken = async (UserId) => {
-    const deletedRefreshToken = await RefreshToken.destroy({ where: { UserId } })
+    const deletedRefreshToken = await RefreshToken.destroy({ where: { UserId } });
     return deletedRefreshToken;
-  }
+  };
 }
 
 module.exports = UserRepository;

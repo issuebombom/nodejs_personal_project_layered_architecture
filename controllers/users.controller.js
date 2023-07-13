@@ -1,6 +1,6 @@
 const UserService = require('../services/users.service');
 const AuthMiddleware = require('../middlewares/auth.middleware');
-const VerificationMail = require('../assets/js/nodemailer');
+const VerificationMail = require('../assets/nodemailer');
 const bcrypt = require('bcrypt');
 
 class UserController {
@@ -27,6 +27,18 @@ class UserController {
       // 유저 정보 없음
       if (!user) return res.status(404).send({ message: '유저 정보 없음' });
       res.status(200).send({ data: user });
+    } catch (err) {
+      console.error(err.name, ':', err.message);
+      return res.status(400).send({ message: `${err.message}` });
+    }
+  };
+
+  uploadProfileImage = async (req, res) => {
+    try {
+      const { userId } = res.locals.user;
+      const imageUrl = req.file.location;
+      await this.userService.uploadProfileImage(imageUrl, userId);
+      res.status(200).send({ message: '프로필 사진 업로드 완료' });
     } catch (err) {
       console.error(err.name, ':', err.message);
       return res.status(400).send({ message: `${err.message}` });

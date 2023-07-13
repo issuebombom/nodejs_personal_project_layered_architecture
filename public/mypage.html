@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>My Page</title>
+</head>
+
+<body>
+  <form id="img-upload-form" enctype="multipart/form-data" onsubmit="return false">
+    <input id="img-file" type="file" accept="image/png, image/jpg, image/jpeg, image/bmp, image/gif">
+    <input type="submit" id="img-upload" value="업로드">
+  </form>
+
+  <script>
+    $(document).ready(() => {
+      const imgUploadForm = document.getElementById('img-upload-form');
+      imgUploadForm.addEventListener('submit', async () => {
+        const formData = new FormData();
+        const profileImage = $('#img-file').prop('files')[0];
+        formData.append('profileImage', profileImage);
+
+        try {
+          const res = await fetch('/api/users/info/images', {
+            method: 'POST',
+            body: formData,
+          });
+          const data = await res.json();
+          alert(data.message)
+        } catch (err) {
+          console.error(err);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

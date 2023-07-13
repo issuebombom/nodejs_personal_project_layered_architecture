@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'UserId',
       });
+
+      this.hasMany(models.ProfileImage, {
+        sourceKey: 'userId',
+        foreignKey: 'UserId',
+      });
     }
   }
   User.init(
