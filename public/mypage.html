@@ -28,9 +28,9 @@
             body: formData,
           });
           const data = await res.json();
-          alert(data.message)
+          alert(data.message);
         } catch (err) {
-          console.error(err);
+          alert(err.responseJSON.message);
         }
       });
     });
