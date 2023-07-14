@@ -28,6 +28,11 @@ class UserService {
     return uploadedProfileImage;
   };
 
+  getProfileImage = async (userId) => {
+    const getProfileImage = await this.userRepository.findProfileImage(userId);
+    return getProfileImage[getProfileImage.length - 1]; // 가장 최신에 업로드한 사진만 가져옴
+  };
+
   findAllUsers = async () => {
     const findUserData = await this.userRepository.findAllUsers();
     return findUserData.map((user) => {

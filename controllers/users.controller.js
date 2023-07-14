@@ -45,6 +45,17 @@ class UserController {
     }
   };
 
+  getProfileImage = async (req, res) => {
+    try {
+      const { userId } = res.locals.user;
+      const imageUrl = await this.userService.getProfileImage(userId);
+      res.status(200).send({ data: imageUrl });
+    } catch (err) {
+      console.error(err.name, ':', err.message);
+      return res.status(400).send({ message: `${err.message}` });
+    }
+  };
+
   modifyUserInfo = async (req, res) => {
     try {
       const { userId } = res.locals.user;
@@ -101,12 +112,13 @@ class UserController {
     try {
       const { inputVerificationCode } = req.body;
       const verificationCode = req.session.verificationCode;
+      console.log(verificationCode);
 
       if (!verificationCode) return res.status(404).send({ message: '인증 메일을 먼저 발송할 것' });
       // 인증 번호 입력 유효성 검증 필요
 
       // 인증 번호 일치 여부 검증
-      if (verificationCode !== inputVerificationCode)
+      if (verificationCode !== Number(inputVerificationCode))
         return res.status(412).send({ message: '인증 번호 일치하지 않음' });
 
       // 인증 번호 일치 시
@@ -134,14 +146,8 @@ class UserController {
 
       // 해시화 및 생성
       const hashedPassword = await bcrypt.hash(password, 10); // pw, salt_rounds
-      const createUserData = await this.userService.createUser(
-        nickname,
-        hashedPassword,
-        email,
-        gender,
-        interestTopic
-      );
-      res.status(200).send({ data: createUserData });
+      await this.userService.createUser(nickname, hashedPassword, email, gender, interestTopic);
+      res.status(200).send({ message: '회원가입 완료' });
     } catch (err) {
       console.error(err.name, ':', err.message);
       return res.status(400).send({ message: `${err.message}` });

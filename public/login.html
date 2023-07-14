@@ -15,6 +15,7 @@
     <input type="email" id="email" placeholder="이메일 입력" />
     <input type="password" id="password" placeholder="비밀번호 입력" />
     <button type="button" id="btnLogin" onclick="login()">로그인</button>
+    <button type="button" id="btnSignup" onclick="signUp()">회원가입</button>
   </form>
 
   <!-- jquery -->
@@ -46,6 +47,10 @@
           alert(err.responseJSON.message);
         },
       });
+    }
+
+    function signUp() {
+      document.location.href = '/signup'
     }
 
   </script>

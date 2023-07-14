@@ -23,17 +23,18 @@ module.exports = (chatIo) => {
     const { accessToken } = cookies;
     const { userId } = auth.getAccessTokenPayload(accessToken);
     const user = await userService.findUserCommonData(userId);
+    const { imageUrl } = await userService.getProfileImage(userId);
 
     console.log(`${user.nickname}유저가 접속했습니다. (현재 접속자: ${chatSocketList.length}명)`);
 
-    socket.emit('JOIN', user);
+    chatIo.emit('JOIN', user);
 
     // 누군가 메시지를 등록하면 작성자를 제외한 유저에게 emit합니다.
     socket.on('SEND', (data) => {
-      const { msg, user } = data;
+      const { msg } = data;
       chatSocketList.forEach((item) => {
         if (item !== socket) {
-          item.emit('SEND', { msg, user });
+          item.emit('SEND', { msg, user, imageUrl });
         }
       });
     });

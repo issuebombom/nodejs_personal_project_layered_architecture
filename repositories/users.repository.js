@@ -12,6 +12,11 @@ class UserRepository {
     return createdProfileImage;
   };
 
+  findProfileImage = async (UserId) => {
+    const findProfileImage = await ProfileImage.findAll({ where: { UserId } });
+    return findProfileImage;
+  };
+
   findAllUsers = async () => {
     const findUserData = await User.findAll();
     return findUserData;

@@ -35,6 +35,7 @@
     border-radius: 5px;
     max-width: 70%;
     text-align: left;
+    word-wrap: break-word;
   }
 
   .join {
@@ -48,11 +49,23 @@
     color: rgb(206, 206, 206);
   }
 
+  .profileImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+    float: left;
+  }
+
   .msgBox {
+    margin-left: 10px;
     background-color: bisque;
     padding: 10px;
     border-radius: 5px;
     max-width: 70%;
+    word-wrap: break-word;
+    /* float: left; */
   }
 
   .chat {
@@ -102,23 +115,29 @@
 
       const join = $('<div class="join">');
       join.append(`${nickname}님이 입장하셨습니다.`);
-      $('#msg').append(join)
+      $('#msg').append(join);
     });
 
     socket.on('SEND', (data) => {
-      const { msg, user } = data;
+      const { msg, user, imageUrl } = data;
 
       const msgLine = $('<div class="msgLine">');
       const userName = $('<div class="userName">');
+      const contentLine = $('<div class="contentLine">')
+      const profileImg = $('<div class="profileImg">');
       const msgBox = $('<div class="msgBox">');
 
-      userName.append(user);
-      msgLine.append(userName);
+      profileImg.css('background-image', `url(${imageUrl})`);
 
+      msgLine.css('text-align', 'left');
+      userName.append(user.nickname);
+      msgLine.append(userName);
+      
+      contentLine.append(profileImg);
       msgBox.append(msg);
       msgBox.css('display', 'inline-block');
-      msgLine.css('text-align', 'left');
-      msgLine.append(msgBox);
+      contentLine.append(msgBox);
+      msgLine.append(contentLine)
       $('#msg').append(msgLine);
     });
 
@@ -129,7 +148,7 @@
 
       if (msgText === '') return;
 
-      socket.emit('SEND', { msg: msgText.val(), user: socket.id });
+      socket.emit('SEND', { msg: msgText.val() });
       const msgLine = $('<div class="msgLine">');
       const msgBox = $('<div class="me">');
 
