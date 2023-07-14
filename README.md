@@ -1,6 +1,6 @@
 # 게시판 페이지 with 3-Leyered Architecture pattern
 
-> TODO
+> [TODO] 프로젝트 시작 단계에서 해야할 일을 나열해 봤습니다.
 
 - [x] 패키지 설치
 - [x] ERD 작성
@@ -32,9 +32,8 @@
 - [x] 로그인할 때 마다 리프레시 토큰을 생성하므로 DB에 중복 적재되지 않도록 기존 유저는 리프레시 토큰 최신화 처리
 - [x] 로그인 시 컨트롤러에서 직접 리프레시 토큰 테이블에 접근하는데 해당 task도 repository가 처리할 수 있도록 수정
 - [x] nodemailer 적용 시 토큰 생성하여 5분 내 가입 가능하도록 구현
-- [x] socket.io 간단하게나마 적용해 볼 것
-  - 로그인 성공 시 socket.io를 통해 백엔드 cli에 성공 메시지 출력되도록 구현
 - [x] AWS S3 버킷에 프로필 사진 저장 기능 구현
+- [x] socket.io 를 활용하여 채팅 기능 구현
 - [ ] 트랜잭션 적용 방법 고민해 볼것
 - [ ] ......
 
@@ -45,7 +44,8 @@ Post 테이블 - postId, UserId, title, topic, content
 Comment 테이블 - commentId, UserId, PostId, content  
 LikePost 테이블 - UUID, UserId, PostId  
 LikeComment 테이블 - UUID, UserId, CommentId  
-RefreshToken 테이블 - UUID, refreshToken, UserId
+RefreshToken 테이블 - UUID, refreshToken, UserId  
+ProfileImage 테이블 - UUID, imageUrl, UserId
 
 ## REST API
 
@@ -57,8 +57,8 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 - '/' GET 메인페이지
 - '/login' GET -> 로그인 페이지
 - '/signup' GET -> 회원가입 페이지
-- '/posts/:postId' GET -> 상세 게시글 보기
-- '/mypage' GET -> 개인정보 페이지
+- '/mypage' GET -> 프로필 사진 업로드 테스트용
+- '/chat' GET -> 채팅 페이지 (로그인 이후 사용 가능)
 
 ### '/api' 데이터 접근 관련
 
@@ -112,6 +112,10 @@ RefreshToken 테이블 - UUID, refreshToken, UserId
 
 - [x] 토큰 생성 (Access Token, Refresh Token)
 - [x] 인증, 인가
+
+**_bucket_middleware.js_**
+
+- [x] S3 버킷과 multer를 활용한 이미지 업로드
 
 ## 3-layered architecture의 역할 배분
 
