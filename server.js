@@ -12,6 +12,7 @@ const userRouter = require('./routes/users.router');
 const postRouter = require('./routes/posts.router');
 const commentRouter = require('./routes/comments.router');
 const likesRouter = require('./routes/likes.router');
+const socketRouter = require('./routes/socket.router');
 
 const HOST = '127.0.0.1';
 const PORT = 3000;
@@ -30,16 +31,7 @@ const io = socketIo(http, {
     methods: ['GET', 'POST'],
   },
 });
-
-const loginIo = io.of('/login');
-loginIo.on('connection', (socket) => {
-  console.log('로그인 페이지 소켓이 연결되었어요!');
-
-  socket.on('LOGIN_SUCCEED', (data) => {
-    const { email } = data;
-    console.log(`${email}님이 로그인 했습니다.`);
-  });
-});
+socketRouter(io); // socket.router.js에서 따로 관리
 
 app.use(
   session({
